@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header class="main-header" th:fragment="headerFragment">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" th:href="@{/user/books}">Bookgle</a>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li>
+        <a class="nav-link" th:href="@{/user/books}">도서목록</a>
+      </li>
+      <li>
+        <a class="nav-link" th:href="@{/user/lends}">대여현황</a>
+      </li>
+      <li>
+        <a class="nav-link" th:href="@{/user/userinfo}">내정보</a>
+      </li>
+      <li th:if="${ session != null }">
+	  	<form method="post" th:action="@{ /user/logout }">
+			<button type="submit" class="btn btn-primary">로그아웃</button>
+	   	</form>
+      </li>
+    </ul>
+  </div>
+</nav>
+</header>

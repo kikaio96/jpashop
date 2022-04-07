@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	data-layout-decorate="~{admin/fragments/template}"
+	>
+<head>
+	<title>사용자정보</title>
+</head>
+<body>
+	<form th:method="put" th:action="@{ /admin/users/{id}(id=${ userInfo.id }) }">
+		<input type="hidden" name="id" th:value="${ userInfo.id }">
+		
+		<div class="form-group">
+		    <label>이름</label><br>
+			<input type="text" class="form-control" name="name" th:value="${ userInfo.name }">
+	  	</div>
+		<div class="form-group">
+			<label>사번</label><br>
+			<input type="text" class="form-control" name="number" th:value="${ userInfo.number }">
+		</div>
+		<div class="form-group">
+		    <label>생년월일(YYYYMMDD)</label><br>
+			<input type="text" class="form-control" name="birthday" th:value="${ userInfo.birthday }">
+		</div>
+		<div class="form-group">
+			<label>이메일</label><br>
+			<input type="text" class="form-control" name="email" th:value="${ userInfo.email }">
+		</div>
+		<div class="form-group">
+		    <label>연락처</label><br>
+			<input type="text" class="form-control" name="phone" th:value="${ userInfo.phone }">
+	  	</div>
+		<button type="submit" class="btn btn-primary">수정</button>
+	</form>
+</body>
+</html>

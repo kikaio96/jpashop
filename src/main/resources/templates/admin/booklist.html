@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{admin/fragments/template}"
+>
+<head>
+    <title>도서관리</title>
+</head>
+<div layout:fragment="content">
+    <h1>도서목록</h1>
+    <a class="btn btn-primary" th:href="@{/admin/book}" role="button">+ 도서등록</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">도서명</th>
+            <th scope="col">분야</th>
+            <th scope="col">저자</th>
+            <th scope="col">출판사</th>
+            <th scope="col">isbn</th>
+            <th scope="col">보유권수</th>
+            <th scope="col">대출가능권수</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${books}">
+            <td><a class="nav-link" th:href="@{/admin/books/{id}(id=${ book.id })}" th:text="${ book.name }"></a></td>
+            <td th:text="${ book.genre }"></td>
+            <td th:text="${ book.author }"></td>
+            <td th:text="${ book.publisher }"></td>
+            <td th:text="${ book.isbn }"></td>
+            <td th:text="${ book.total_count }"></td>
+            <td th:text="${ book.remain }"></td>
+
+            <td th:if="${book.state.name() == 'ACTIVATE'}" >
+                <form th:method="patch" th:action="@{/admin/books/{id}(id=${ book.id })}">
+                    <input type="hidden" name="book_id" th:value="${ book.id }">
+                    <input type="hidden" name="state" th:value="DEACTIVATE">
+                    <button type="submit" class="btn btn-primary">삭제</button>
+                </form>
+            </td>
+            <td th:if="${book.state.name() == 'DEACTIVATE'}" >
+                <form th:method="patch" th:action="@{/admin/books/{id}(id=${ book.id })}">
+                    <input type="hidden" name="book_id" th:value="${ book.id }">
+                    <input type="hidden" name="state" th:value="ACTIVATE">
+                    <button type="submit" class="btn btn-primary">복구</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <span th:each="page : ${pageStartList}">
+  		<a href="?start=${page}" th:text="${pageStat.index + 1 }"></a>&nbsp; &nbsp;
+  	</span>
+</div>
+</html>

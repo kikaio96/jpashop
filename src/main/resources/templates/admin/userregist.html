@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	data-layout-decorate="~{admin/fragments/template}"
+	>
+<head>
+	<title>사용자등록</title>
+</head>
+<div layout:fragment="content">
+	<form method="post" th:action="@{ /admin/user }">
+		<div class="form-group">
+		    <label>이름</label><br>
+			<input type="text" class="form-control" name="name"><br>
+	  	</div>
+		<div class="form-group">
+			<label>사번</label><br>
+			<input type="text" class="form-control" name="number"><br>
+		</div>
+		<div class="form-group">
+		    <label for="birthday">생년월일(YYYYMMDD)</label><br>
+		    <input id="birthday" name="birthday" readonly="readonly">
+		</div>
+		<div class="form-group">
+			<label>이메일</label><br>
+			<input type="text" class="form-control" name="email"><br>
+		</div>
+		<div class="form-group">
+			<label>비밀번호</label><br>
+			<label>초기비밀번호 : 1111</label><br><br>
+		</div>
+		<div class="form-group">
+		    <label>연락처</label><br>
+			<input type="text" class="form-control" name="phone"><br>
+	  	</div>
+		<button type="submit" class="btn btn-primary">등록</button>
+	</form>
+	<script>
+		var errorCode = "[[${errorCode}]]";
+		var errorMsg = "[[${errorMessage}]]";
+		if(errorCode == 500) {
+			alert(errorMsg);
+		}
+		
+		var birthdayInput = document.getElementById('birthday');
+		var picker = new Lightpick({
+		    field: birthdayInput,
+		    format: "YYYYMMDD"
+		});
+	</script>
+</div>
+</html>

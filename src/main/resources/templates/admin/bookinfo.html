@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	data-layout-decorate="~{admin/fragments/template}"
+	>
+<head>
+	<title>도서수정</title>
+</head>
+<div layout:fragment="content">
+	<form th:method="put" th:action="@{ /admin/books/{id}(id=${ book.id }) }">
+		<input type="hidden" name="id" th:value="${ book.id }">
+		
+		<div class="form-group">
+		    <label>도서명</label>
+		    <input type="text" class="form-control" name="name" th:value="${ book.name }">
+	  	</div>
+		<div class="form-group">
+			<label>분야</label>
+			<input type="text" class="form-control" name="genre" th:value="${ book.genre }">
+		</div>
+	    <div class="form-group">
+	    	<label>도서정보</label>
+		    <textarea class="form-control" name="info" rows="3" th:text="${ book.info }"></textarea>
+		  </div>
+		<div class="form-group">
+			<label>ISBN</label>
+			<input type="text" class="form-control" name="isbn" th:value="${ book.isbn }">
+		</div>
+		<div class="form-group">
+		    <label>저자</label>
+		    <input type="text" class="form-control" name="author" th:value="${ book.author }">
+	  	</div>
+		<div class="form-group">
+		    <label >엮은이</label>
+		    <input type="text" class="form-control" name="plait" th:value="${ book.plait }">
+		</div>
+		<div class="form-group">
+		    <label>출판사</label>
+		    <input type="text" class="form-control" name="publisher" th:value="${ book.publisher }">
+		</div>
+		
+		<div class="form-group">
+		    <label>보유권수</label>
+		    <input type="hidden" name="before_total_count" th:value="${ book.total_count }">
+		    <input type="text" class="form-control " name="total_count" th:value="${ book.total_count }">
+		</div>
+		<div class="form-group">
+		    <label>대출가능권수</label><br>
+		    <label name="remain" th:text="${ book.remain }"></label>
+		</div>
+		<button type="submit" class="btn btn-primary">수정</button>
+	</form>
+</div>
+</html>

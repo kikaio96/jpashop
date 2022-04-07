@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	data-layout-decorate="~{user/fragments/template}"
+	>
+<head>
+	<title>도서목록</title>
+</head>
+<div layout:fragment="content">
+	<h1>도서목록</h1>
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">도서명</th>
+				<th scope="col">분야</th>
+				<th scope="col">저자</th>
+				<th scope="col">출판사</th>
+				<th scope="col">isbn</th>
+				<th scope="col">보유권수</th>
+				<th scope="col">대출가능권수</th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+	  	<tbody>
+		    <tr th:each="book : ${bookList}">
+		      	<td><a class="nav-link" th:href="@{/user/books/{id}(id=${ book.id })}" th:text="${ book.name }"></a></td>
+		      	<td th:text="${ book.genre }"></td>
+		      	<td th:text="${ book.author }"></td>
+		      	<td th:text="${ book.publisher }"></td>
+		      	<td th:text="${ book.isbn }"></td>
+		      	<td th:text="${ book.total_count }"></td>
+		      	<td th:text="${ book.remain }"></td>
+		    </tr>
+	  	</tbody>
+	</table>
+  	
+  	<span th:each="page : ${pageStartList}">
+  		<a href="?start=${page}" th:text="${pageStat.index + 1 }"></a>&nbsp; &nbsp;
+  	</span>
+</div>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	data-layout-decorate="~{user/fragments/template}"
+	>
+<head>
+	<title>도서정보</title>
+</head>
+<div layout:fragment="content">
+	<form method="post" th:action="@{/user/lend}">
+		<input type="hidden" name="book_id" th:value="${ book.id }">
+		
+		<div class="form-group">
+		    <label>도서명</label><br>
+		    <label th:text="${ book.name }"></label><br>
+	  	</div>
+		<div class="form-group">
+			<label>분야</label><br>
+			<label th:text="${ book.genre }"></label><br>
+		</div>
+	    <div class="form-group">
+	    	<label>도서정보</label><br>
+		    <textarea class="form-control" name="info" rows="3" th:text="${ book.info }"></textarea><br>
+		  </div>
+		<div class="form-group">
+			<label>ISBN</label><br>
+			<label th:text="${ book.isbn }"></label><br>
+		</div>
+		<div class="form-group">
+		    <label>저자</label><br>
+		    <label th:text="${ book.author }"></label><br>
+	  	</div>
+		<div class="form-group">
+		    <label>엮은이</label><br>
+		    <label th:text="${ book.plait }"></label><br>
+		</div>
+		<div class="form-group">
+		    <label>출판사</label><br>
+		    <label th:text="${ book.publisher }"></label><br>
+		</div>
+		
+		<div class="form-group">
+		    <label>대출가능권수</label><br>
+		    <label th:text="${ book.remain }"></label><br>
+		</div>
+			<button th:if="${ book.remain > 0}" type="submit" class="btn btn-primary">대여</button>
+			<button th:if="${ book.remain <= 0}"type="submit" class="btn btn-primary" aria-disabled="true" disabled>대여불가</button>
+	</form>
+	<script>
+		var errorCode = "[[${errorCode}]]";
+		var errorMsg = "[[${errorMessage}]]";
+		if(errorCode == 500) {
+			alert(errorMsg);
+		}
+	</script>
+</div>
+</html>

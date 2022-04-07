@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	data-layout-decorate="~{user/fragments/template}"
+	>
+<head>
+<title>로그인</title>
+</head>
+<header class="main-header" th:fragment="loginFragment">
+	<h1>로그인</h1>
+	<form method="post" th:action="@{/user/login}">
+		<div class="form-group">
+			<label>이메일</label>
+			<input type="text" class="form-control" name="email">
+		</div>
+		<div class="form-group">
+			<label>비밀번호</label>
+			<input type="text" class="form-control" name="password">
+		</div>
+		<button type="submit" class="btn btn-primary">로그인</button>
+	</form>
+	<script>
+		var param = "[[${errorResult}]]";
+		if(param == -1) {
+			alert('올바르지 않은 계정 정보입니다.');
+		}
+	</script>
+</header>
+</html>

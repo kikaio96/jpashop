@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	data-layout-decorate="~{admin/fragments/template}"
+	>
+<head>
+<title>사용자관리</title>
+</head>
+<div layout:fragment="content">
+	<h1>사용자관리</h1>
+	<a class="btn btn-primary" th:href="@{/admin/user}" role="button">+ 사용자등록</a>
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">이름</th>
+				<th scope="col">사번</th>
+				<th scope="col">이메일</th>
+				<th scope="col">휴대폰번호</th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+	  	<tbody>
+		    <tr th:each="user : ${userList}">
+		      	<td><a th:href="@{ /admin/users/{id}(id=${user.id}) }" th:text="${ user.name }"></a></td>
+		      	<td th:text="${ user.number }"></td>
+		      	<td th:text="${ user.email }"></td>
+		      	<td th:text="${ user.phone }"></td>
+
+		      	<td th:if="${user.state.name() == 'ACTIVATE'}">
+			    	<form th:method="patch" th:action="@{ /admin/users/{id}(id=${user.id}) }">
+						<input type="hidden" name="state" th:value="WITHDRAW">
+						<button type="submit" class="btn btn-primary">삭제</button>
+			    	</form>
+		    	</td>
+				<td th:if="${user.state.name() == 'WITHDRAW'}" >
+					<form th:method="patch" th:action="@{/admin/users/{id}(id=${ user.id })}">
+						<input type="hidden" name="state" th:value="ACTIVATE">
+						<button type="submit" class="btn btn-primary">복구</button>
+					</form>
+				</td>
+			</tr>
+	  	</tbody>
+	</table>
+  	
+  	<span th:each="page : ${pageStartList}">
+  		<a href="?start=${page}" th:text="${pageStat.index + 1 }"></a>&nbsp; &nbsp;
+  	</span>
+	<script>
+		var errorCode = "[[${errorCode}]]";
+		var errorMsg = "[[${errorMessage}]]";
+		if(errorCode == 500) {
+			alert(errorMsg);
+		}
+	</script>
+</div>
+</html>
